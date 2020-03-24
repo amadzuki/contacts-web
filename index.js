@@ -1,3 +1,8 @@
+let contacts = JSON.parse(localStorage.getItem("myContacts"))
+if (contacts === null) {
+  contacts = []
+}
+
 //store contact as object
 class contact {
   constructor(id, name, phone, birthday, email, website, address) {
@@ -10,8 +15,6 @@ class contact {
     this.address = address
   }
 }
-
-let contacts = []
 
 const newContact = event => {
   event.preventDefault()
@@ -43,8 +46,14 @@ const newContact = event => {
     newAddress
   )
   contacts.push(newEntry)
+  saveData()
   document.getElementById("contact-form").reset()
 }
 
 const form = document.getElementById("contact-form")
 form.addEventListener("submit", newContact)
+
+//save data to localstorage
+const saveData = () => {
+  localStorage.setItem("myContacts", JSON.stringify(contacts))
+}
