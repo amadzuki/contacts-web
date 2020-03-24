@@ -1,3 +1,6 @@
+//global
+const contactList = document.getElementById("contact-list")
+
 //initiate contacts array from storage
 let contacts = JSON.parse(localStorage.getItem("myContacts"))
 if (contacts === null) {
@@ -8,10 +11,17 @@ if (contacts === null) {
 const showContacts = () => {
   const nameList = contacts.map(contact => contact.name)
   const phoneList = contacts.map(contact => contact.phone)
-  const contactList = document.getElementById("contact-list")
+  const idList = contacts.map(contact => contact.id)
   for (let index = 0; index < contacts.length; index++) {
-    contactList.innerHTML += `<li><button onclick="showDetail()">${nameList[index]}\t${phoneList[index]}</button></li>`
+    contactList.innerHTML += `<li><button onclick="showDetail(this)" data-id="${idList[index]}">${nameList[index]}\t${phoneList[index]}</button></li>`
   }
+}
+const showDetail = nodeButton => {
+  const contactID = nodeButton.dataset.id
+  const selectedContact = JSON.stringify(
+    contacts.find(contact => contact.id == contactID)
+  )
+  nodeButton.parentNode.innerHTML += `<div>${selectedContact}</div>`
 }
 showContacts()
 
