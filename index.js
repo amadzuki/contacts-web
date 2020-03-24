@@ -43,6 +43,7 @@ const newContact = event => {
     newAddress
   )
   contacts.push(newEntry)
+  document.getElementById("contact-form").reset()
 }
 
 const form = document.getElementById("contact-form")
